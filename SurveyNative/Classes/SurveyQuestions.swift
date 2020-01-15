@@ -28,7 +28,7 @@ open class SurveyQuestions {
    var activeQuestion: Int = 0
    var showSubmitButton = false
    
-   var questionIdMap : [String : [String : Any?]] = [:]
+   public var questionIdMap : [String : [String : Any?]] = [:]
    
    // MARK: setup
    
