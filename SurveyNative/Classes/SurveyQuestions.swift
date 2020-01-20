@@ -13,7 +13,7 @@ public typealias Question = [String : Any?]
 open class SurveyQuestions {
 
    public var questionIdMap : [String : Question] = [:]
-   public private(set) var questions : [Question]
+   public private(set) var questions : [[String : Any?]]
     
    var surveyTheme : SurveyTheme
    var surveyAnswerDelegate: SurveyAnswerDelegate?
