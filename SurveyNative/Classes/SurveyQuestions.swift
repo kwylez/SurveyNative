@@ -8,13 +8,17 @@
 
 import Foundation
 
+public typealias Question = [String : Any?]
+
 open class SurveyQuestions {
-   
+
+   public var questionIdMap : [String : Question] = [:]
+   public private(set) var questions : [Question]
+    
    var surveyTheme : SurveyTheme
    var surveyAnswerDelegate: SurveyAnswerDelegate?
    var customConditionDelegate: CustomConditionDelegate?
-   
-   public private(set) var questions : [[String : Any?]]
+
    var submitData : [String : String]
    var autoFocusText: Bool = false
    var answers: [String: Any] = [:]
@@ -27,8 +31,7 @@ open class SurveyQuestions {
    var subQToParentIdMap : [String : String]
    var activeQuestion: Int = 0
    var showSubmitButton = false
-   
-   public var questionIdMap : [String : [String : Any?]] = [:]
+
    
    // MARK: setup
    
@@ -1368,6 +1371,28 @@ open class SurveyQuestions {
       return update(questionPath, data: data)
    }
    
+    @discardableResult
+    public func update(_ question: Question, answer: String) -> SectionChanges {
+      
+        let selection = "Chocolate"
+        var selectedValue = Int.max
+        var selectedIndex = Int.max
+
+        for (index, value) in questions.enumerated() where value["id"] as! String == question.keys.first! {
+            print("what is the index \(index) and value \(value)")
+            selectedIndex = index
+        }
+
+        let options: Array<String> = question["options"] as! [String]
+        if let userChoiceIndex: Int = options.firstIndex(of: selection) {
+            selectedValue = userChoiceIndex
+        }
+
+        print("found it \(question) and seleted index \(selectedIndex) and update userChoice \(selectedValue)")
+        let dataString: String = "\(selectedIndex)::\(selectedValue)"
+        return self.update(id: dataString, data: answer)
+    }
+    
    func update(_ questionPath : QuestionPath, data : Any) -> SectionChanges {
       var sectionChanges = SectionChanges()
       let questionType = self.questionType(for: self.question(for: questionPath))
