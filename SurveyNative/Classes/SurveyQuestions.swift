@@ -14,7 +14,7 @@ open class SurveyQuestions {
    var surveyAnswerDelegate: SurveyAnswerDelegate?
    var customConditionDelegate: CustomConditionDelegate?
    
-   var questions : [[String : Any?]]
+   public private(set) var questions : [[String : Any?]]
    var submitData : [String : String]
    var autoFocusText: Bool = false
    var answers: [String: Any] = [:]
