@@ -1373,8 +1373,8 @@ open class SurveyQuestions {
    
     public func update(_ question: Question, answer: String) -> SectionChanges {
 
-        var selectedValue = 0
-        var selectedIndex = 0
+        var selectedValue = Int.max
+        var selectedIndex = Int.max
 
         for (index, value) in self.questions.enumerated() where value["id"] as! String == question["id"] as! String {
             print("what is the index \(index) and value \(value)")
