@@ -13,7 +13,7 @@ public typealias Question = [String : Any?]
 open class SurveyQuestions {
 
    public var questionIdMap : [String : Question] = [:]
-   public private(set) var questions : [[String : Any?]]
+   public var questions : [Question]
     
    var surveyTheme : SurveyTheme
    var surveyAnswerDelegate: SurveyAnswerDelegate?
@@ -1371,20 +1371,18 @@ open class SurveyQuestions {
       return update(questionPath, data: data)
    }
    
-    @discardableResult
     public func update(_ question: Question, answer: String) -> SectionChanges {
-      
-        let selection = "Chocolate"
-        var selectedValue = Int.max
-        var selectedIndex = Int.max
 
-        for (index, value) in questions.enumerated() where value["id"] as! String == question.keys.first! {
+        var selectedValue = 0
+        var selectedIndex = 0
+
+        for (index, value) in self.questions.enumerated() where value["id"] as! String == question["id"] as! String {
             print("what is the index \(index) and value \(value)")
             selectedIndex = index
         }
 
         let options: Array<String> = question["options"] as! [String]
-        if let userChoiceIndex: Int = options.firstIndex(of: selection) {
+        if let userChoiceIndex: Int = options.firstIndex(of: answer) {
             selectedValue = userChoiceIndex
         }
 
