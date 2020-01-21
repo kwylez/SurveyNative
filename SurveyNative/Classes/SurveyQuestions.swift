@@ -684,7 +684,8 @@ open class SurveyQuestions {
    func option(for questionPath: QuestionPath) -> AnyHashable {
       let question = self.question(for: questionPath)
       let options = self.options(for: question)
-      return options[questionPath.row() - 1]
+      let row = (questionPath.row() - 1) < 0 ? 0 : (questionPath.row() - 1)
+      return options[row]
    }
    
    func optionText(for questionPath: QuestionPath) -> String {
@@ -1371,6 +1372,7 @@ open class SurveyQuestions {
       return update(questionPath, data: data)
    }
    
+    @discardableResult
     public func update(_ question: Question, answer: String) -> SectionChanges {
 
         var selectedValue = Int.max
